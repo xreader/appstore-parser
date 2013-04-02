@@ -21,12 +21,12 @@ var parse = function (body, callback) {
 	data.copyright = xpath.select('//div[@class="lockup product application"]/ul//li[@class="copyright"]/text()', doc)[0].nodeValue;
 	data.apprating = xpath.select('//div[@class="app-rating"]/a/text()', doc)[0].nodeValue;
 	var ratings = xpath.select('//div[@class="extra-list customer-ratings"]/div[@class="rating"]/@aria-label', doc);
-	data.current = ratings[0].nodeValue;
-	data.overall = ratings[1].nodeValue;       
-	data.currentversion = data.current.split(',')[1];
-	data.currentversionstar = data.current.split(',')[0];
-	data.allversions = data.overall.split(',')[1];
-	data.allversionsstar = data.overall.split(',')[0];
+	var current = ratings[0].nodeValue;
+	var overall = ratings[1].nodeValue;       
+	data.currentversion = current.split(',')[1];
+	data.currentversionstar = current.split(',')[0];
+	data.allversions = overall.split(',')[1];
+	data.allversionsstar = overall.split(',')[0];
 	
 	data.iphonescreenshots = new Array();
 	xpath.select('//div[@metrics-loc="iPhone"]//div[@class="lockup"]/img/@src', doc).forEach(function (node) {

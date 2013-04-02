@@ -9,20 +9,20 @@ var xpath = require('xpath')
 var parse = function (body, callback) {
 	var doc = new dom().parseFromString(body);
 	var data = {};
-	data.title = xpath.select('//div[@id="title"]/div/h1/text()', doc)[0];
-	data.developer = xpath.select('//div[@id="title"]/div/h2/text()', doc)[0];
-	data.description = xpath.select('//div[@class="product-review"]/p/text()', doc)[0];
+	data.title = xpath.select('//div[@id="title"]/div/h1/text()', doc)[0].nodeValue;
+	data.developer = xpath.select('//div[@id="title"]/div/h2/text()', doc)[0].nodeValue;
+	data.description = xpath.select('//div[@class="product-review"]/p/text()', doc)[0].nodeValue;
 	data.logo = xpath.select('//div[@class="lockup product application"]/a/div/img/@src', doc)[0].nodeValue;
-	data.price = xpath.select('//div[@class="price"]/text()', doc)[0];
-	data.genre = xpath.select('//div[@class="lockup product application"]/ul//li[@class="genre"]/a/text()', doc)[0];
-	data.releasedate = xpath.select('//div[@class="lockup product application"]/ul//li[@class="release-date"]/text()', doc)[0];
-	data.requirements = xpath.select('//div[@class="lockup product application"]/p/text()', doc)[0];
-	data.language = xpath.select('//div[@class="lockup product application"]/ul//li[@class="language"]/text()', doc)[0];
-	data.copyright = xpath.select('//div[@class="lockup product application"]/ul//li[@class="copyright"]/text()', doc)[0];
-	data.apprating = xpath.select('//div[@class="app-rating"]/a/text()', doc)[0];
-	data.ratings = xpath.select('//div[@class="extra-list customer-ratings"]/div[@class="rating"]/@aria-label', doc);
-	data.current = data.ratings[0].nodeValue;
-	data.overall = data.ratings[1].nodeValue;       
+	data.price = xpath.select('//div[@class="price"]/text()', doc)[0].nodeValue;
+	data.genre = xpath.select('//div[@class="lockup product application"]/ul//li[@class="genre"]/a/text()', doc)[0].nodeValue;
+	data.releasedate = xpath.select('//div[@class="lockup product application"]/ul//li[@class="release-date"]/text()', doc)[0].nodeValue;
+	data.requirements = xpath.select('//div[@class="lockup product application"]/p/text()', doc)[0].nodeValue;
+	data.language = xpath.select('//div[@class="lockup product application"]/ul//li[@class="language"]/text()', doc)[0].nodeValue;
+	data.copyright = xpath.select('//div[@class="lockup product application"]/ul//li[@class="copyright"]/text()', doc)[0].nodeValue;
+	data.apprating = xpath.select('//div[@class="app-rating"]/a/text()', doc)[0].nodeValue;
+	var ratings = xpath.select('//div[@class="extra-list customer-ratings"]/div[@class="rating"]/@aria-label', doc);
+	data.current = ratings[0].nodeValue;
+	data.overall = ratings[1].nodeValue;       
 	data.currentversion = data.current.split(',')[1];
 	data.currentversionstar = data.current.split(',')[0];
 	data.allversions = data.overall.split(',')[1];
@@ -48,7 +48,10 @@ var load = function (url) {
 			parse ( body, function (err, data) {
 				if (err) throw err;
 				//console.log(":::" + JSON.stringify(data));
-				console.log(data.title);
+				// console.log(data.title);
+                                for (var prop in data) {
+                                        console.log(data[prop]);
+                                }
 			});
 		};
 	})

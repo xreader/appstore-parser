@@ -23,9 +23,9 @@ var parse = function (body, callback) {
 	var ratings = xpath.select('//div[@class="extra-list customer-ratings"]/div[@class="rating"]/@aria-label', doc);
 	var current = ratings[0].nodeValue;
 	var overall = ratings[1].nodeValue;       
-	data.currentversion = current.split(',')[1];
+	data.currentversion = current.split(',')[1].trim();
 	data.currentversionstar = current.split(',')[0];
-	data.allversions = overall.split(',')[1];
+	data.allversions = overall.split(',')[1].trim();
 	data.allversionsstar = overall.split(',')[0];
 	
 	data.iphonescreenshots = new Array();

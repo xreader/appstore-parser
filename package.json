@@ -1,0 +1,11 @@
+{
+    "name": "appstore-parser",
+    "author": "Vasily Fomin",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "xpath": "latest",
+        "xmldom" : "latest",
+        "request" : "latest"
+    }
+}

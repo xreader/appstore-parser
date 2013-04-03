@@ -57,4 +57,4 @@ var load = function (url) {
 	})
 };
 exports.load = load;
-load(url);
+// load(url);

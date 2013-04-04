@@ -1,8 +1,6 @@
 var xpath = require('xpath')
     ,dom = require('xmldom').DOMParser
     ,request = require('request');
-    // var tidy = require('htmltidy').tidy
-    //,tidy = require('htmltidy').tidy
 
 var parse = function (body, callback) {
     var doc = new dom().parseFromString(body);

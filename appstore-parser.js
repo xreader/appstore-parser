@@ -5,9 +5,11 @@ var xpath = require('xpath')
 var parse = function (body, callback) {
     var doc = new dom().parseFromString(body);
     var data = {};
+    data.appstore = true;
     data.title = xpath.select('//div[@id="title"]/div/h1/text()', doc)[0].nodeValue;
     data.author= xpath.select('//div[@id="title"]/div/h2/text()', doc)[0].nodeValue;
     data.text_description = xpath.select('//div[@class="product-review"]/p/text()', doc)[0].nodeValue;
+    data.html_description = xpath.select('//div[@class="product-review"]/p/text()', doc).join("</br>");
     data.icon= xpath.select('//div[@class="lockup product application"]/a/div/img/@src', doc)[0].nodeValue;
     data.price = xpath.select('//div[@class="price"]/text()', doc)[0].nodeValue;
     data.category= xpath.select('//div[@class="lockup product application"]/ul//li[@class="genre"]/a/text()', doc)[0].nodeValue;
@@ -24,10 +26,14 @@ var parse = function (body, callback) {
     data.allversions = overall.split(',')[1].trim();
     data.allversionsstar = overall.split(',')[0];
 
-    data.iphonescreenshots = [];
-    xpath.select('//div[@metrics-loc="iPhone"]//div[@class="lockup"]/img/@src', doc).forEach(function (node) {
-        data.iphonescreenshots.push(node.nodeValue);
+    data.screenShots = [];
+    xpath.select('//div[@class="lockup"]/img/@src', doc).forEach(function (node) {
+        data.screenShots.push(node.nodeValue);
     });
+
+//    xpath.select('//div[@metrics-loc="iPhone"]//div[@class="lockup"]/img/@src', doc).forEach(function (node) {
+//        data.iphonescreenshots.push(node.nodeValue);
+//    });
 
     data.ipadscreenshots = [];
     xpath.select('//div[@metrics-loc="iPad"]//div[@class="lockup"]/img/@src', doc).forEach(function (node) {

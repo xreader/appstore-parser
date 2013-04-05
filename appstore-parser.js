@@ -17,14 +17,16 @@ var parse = function (body, callback) {
     data.requirements = xpath.select('//div[@class="lockup product application"]/p/text()', doc)[0].nodeValue;
     data.language = xpath.select('//div[@class="lockup product application"]/ul//li[@class="language"]/text()', doc)[0].nodeValue;
     data.copyright = xpath.select('//div[@class="lockup product application"]/ul//li[@class="copyright"]/text()', doc)[0].nodeValue;
-    data.rating = xpath.select('//div[@class="app-rating"]/a/text()', doc)[0].nodeValue;
+    data.contentRating = xpath.select('//div[@class="app-rating"]/a/text()', doc)[0].nodeValue;
+    //data.softwareVersion = xpath.select('//li[@class="label"]/text()="Version: "', doc)[0].nodeValue;
     var ratings = xpath.select('//div[@class="extra-list customer-ratings"]/div[@class="rating"]/@aria-label', doc);
     var current = ratings[0].nodeValue;
     var overall = ratings[1].nodeValue;
-    data.softwareVersion= current.split(',')[1].trim();
+    //data.softwareVersion= current.split(',')[1].trim();
     data.currentversionstar = current.split(',')[0];
     data.allversions = overall.split(',')[1].trim();
     data.allversionsstar = overall.split(',')[0];
+    data.ratings = overall.split(',')[0];
 
     data.screenShots = [];
     xpath.select('//div[@class="lockup"]/img/@src', doc).forEach(function (node) {
